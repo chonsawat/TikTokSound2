@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { eventRecords as evr } from "../../assets/data";
+import { eventRecords } from "../../assets/data";
+import { events } from "../../assets/data";
 
 export type EventRecordType = {
   id: string;
@@ -9,12 +10,19 @@ export type EventRecordType = {
   sound: string;
 };
 
+export type EventType = {
+  label: string;
+  value: string;
+};
+
 type initialStateType = {
   eventRecords: EventRecordType[];
+  events: EventType[];
 };
 
 const initialState: initialStateType = {
-  eventRecords: evr,
+  eventRecords,
+  events,
 };
 
 const eventSlice = createSlice({
@@ -25,8 +33,19 @@ const eventSlice = createSlice({
       state.eventRecords = [...state.eventRecords, action.payload];
     },
     deleteEventRecord: (state, action) => {
-      state.eventRecords = state.eventRecords.filter((item) => item.id !== action.payload)
-    }
+      state.eventRecords = state.eventRecords.filter(
+        (item) => item.id !== action.payload
+      );
+    },
+    setEventRecordVolume: (state, action) => {
+      const { id, volume } = action.payload;
+      const normalizeVolume = volume / 100;
+      state.eventRecords.find((item) => {
+        if (item.id === id) {
+          item.volume = normalizeVolume
+        }
+      })
+    },
   },
 });
 

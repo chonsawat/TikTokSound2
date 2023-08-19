@@ -1,17 +1,21 @@
 import React from "react";
 import AddButton from "./AddButton";
 
-const TableHeader = () => {
+type TableHeaderProps = { isEventRecordIsNull: () => boolean };
+
+const TableHeader = ({ isEventRecordIsNull }: TableHeaderProps) => {
   return (
     <>
       <thead className="text-xs text-gray-700 uppercase bg-gray-100">
         <tr>
           <th scope="col" className="px-6 py-3 flex items-center">
             <p>Action </p>
-            <AddButton />
+            <AddButton
+              additionalClass={isEventRecordIsNull() ? "animate-bounce" : ""}
+            />
           </th>
           <th scope="col" className="px-6 py-3">
-          Volume
+            Volume
           </th>
           <th scope="col" className="px-6 py-3">
             Enable

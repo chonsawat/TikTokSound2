@@ -9,14 +9,18 @@ const EventTable = () => {
   const eventRecords = useAppSelector(eventRecordsSelector);
 
   const isNull = (data: any[]) => {
-    return data.length === 0
-  }
+    return data.length === 0;
+  };
+
+  const eventRecordsIsNull = () => {
+    return isNull(eventRecords);
+  };
 
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500">
-          <TableHeader/>
+          <TableHeader isEventRecordIsNull={eventRecordsIsNull} />
           <TableBody data={eventRecords} />
         </table>
         {isNull(eventRecords) && <EventNotFound />}

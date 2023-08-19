@@ -2,7 +2,11 @@ import React from "react";
 import { useAppDispatch } from "../stores/store";
 import { eventActions } from "../stores/events/event.slice";
 
-const AddButton = () => {
+type AddButtonProps = {
+  additionalClass: string;
+} & React.HTMLProps<HTMLButtonElement>;
+
+const AddButton: React.FC<AddButtonProps> = ({ additionalClass }) => {
   const dispatch = useAppDispatch();
 
   const onClickHandle = () => {
@@ -19,7 +23,10 @@ const AddButton = () => {
   };
 
   return (
-    <button onClick={onClickHandle} className="ml-5 self-center px-1 rounded-md bg-slate-400 hover:bg-amber-500 hover:shadow hover:amber-lime-500 hover:text-white">
+    <button
+      onClick={onClickHandle}
+      className={`ml-5 self-center px-1 rounded-md bg-slate-400 hover:bg-amber-500 hover:shadow hover:amber-lime-500 hover:text-white ${additionalClass}`}
+    >
       <p className="p-[4px] center text-white font-bold">ADD</p>
     </button>
   );
