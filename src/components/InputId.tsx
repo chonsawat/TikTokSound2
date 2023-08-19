@@ -1,12 +1,8 @@
-import { useEffect } from "react";
 import { useAppDispatch } from "../stores/store";
 import { inputActions } from "../stores/input/input.slice";
 
 export const InputId = () => {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(inputActions.setUid("@something"));
-  }, []);
 
   return (
     <input
