@@ -1,6 +1,7 @@
 import React from "react";
 import { useAppDispatch } from "../stores/store";
 import { eventActions } from "../stores/events/event.slice";
+import { MdAdd } from "react-icons/md";
 
 type AddButtonProps = {
   additionalClass: string;
@@ -27,7 +28,10 @@ const AddButton: React.FC<AddButtonProps> = ({ additionalClass }) => {
       onClick={onClickHandle}
       className={`ml-5 self-center px-1 rounded-md bg-slate-400 hover:bg-amber-500 hover:shadow hover:amber-lime-500 hover:text-white ${additionalClass}`}
     >
-      <p className="p-[4px] center text-white font-bold">ADD</p>
+      <div className="flex">
+        <p className="p-[4px] center text-white font-bold">ADD </p>
+        <MdAdd className="self-center text-white animate-pulse"/>
+      </div>
     </button>
   );
 };
