@@ -42,9 +42,20 @@ const eventSlice = createSlice({
       const normalizeVolume = volume / 100;
       state.eventRecords.find((item) => {
         if (item.id === id) {
-          item.volume = normalizeVolume
+          item.volume = normalizeVolume;
         }
-      })
+      });
+    },
+    setEventRecordEnable: (state, action) => {
+      state.eventRecords.find((item) => {
+        const {id, enable} = action.payload;
+        if (item.id === id) {
+          item.enable = enable;
+        }
+
+        console.log(action.payload);
+        
+      });
     },
   },
 });

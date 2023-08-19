@@ -3,6 +3,7 @@ import { EventRecordType, eventActions } from "../stores/events/event.slice";
 import ActionButton, { ActionButtonEnum } from "./ActionButton";
 import { useAppDispatch } from "../stores/store";
 import VolumeRangeBar from "./VolumeRangeBar";
+import CheckBox from "./CheckBox";
 
 type TableRowProps = {
   data: EventRecordType;
@@ -45,7 +46,7 @@ const TableRow = ({ data }: TableRowProps) => {
           />
         </td>
         <td id="enable" className="table-data">
-          {data.enable ? "True" : "False"}
+          <CheckBox data={data} />
         </td>
         <td
           id="event"
