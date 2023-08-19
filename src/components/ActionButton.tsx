@@ -1,5 +1,7 @@
 import React from "react";
 import { MdDeleteOutline, MdPlayArrow } from "react-icons/md";
+import { EventRecordType, eventActions } from "../stores/events/event.slice";
+import { useAppDispatch } from "../stores/store";
 
 export enum ActionButtonEnum {
   PLAY = "PLAY",
@@ -8,28 +10,36 @@ export enum ActionButtonEnum {
 
 type ActionButtonProps = {
   action: string;
-} & React.HTMLProps<HTMLAnchorElement>;
+  data: EventRecordType;
+};
 
-const ActionButton: React.FC<ActionButtonProps> = ({ action, onClick }) => {
-  const color =
-    action === "DELETE"
-      ? "bg-red-500 shadow-red-500/30"
-      : "bg-lime-500 shadow-lime-500/20";
-  const styleClass = `flex font-medium text-white hover:underline  py-2 px-4 rounded-lg shadow-lg ${color}`;
+const styleClass = `flex font-medium text-white hover:underline  py-2 px-4 rounded-lg shadow-lg`;
+
+const ActionButton: React.FC<ActionButtonProps> = ({ action, data }) => {
+  const dispatch = useAppDispatch();
+
+  const onDeleteHandler = () => {
+    const { id } = data;
+    dispatch(eventActions.deleteEventRecord(id));
+  };
 
   if (action === "PLAY") {
     return (
       <div className="flex">
-        <a onClick={onClick} href="#" className={styleClass}>
+        <a href="#" className={`${styleClass} bg-lime-500 shadow-lime-500/20`}>
           Play
-          <MdPlayArrow className="ml-1 self-center"/>
+          <MdPlayArrow className="ml-1 self-center" />
         </a>
       </div>
     );
   } else {
     return (
       <div className="flex">
-        <a onClick={onClick} href="#" className={styleClass}>
+        <a
+          onClick={onDeleteHandler}
+          href="#"
+          className={`${styleClass} bg-red-500 shadow-red-500/30`}
+        >
           Delete
           <MdDeleteOutline className="self-center ml-1" />
         </a>

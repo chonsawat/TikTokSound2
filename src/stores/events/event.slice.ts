@@ -52,9 +52,6 @@ const eventSlice = createSlice({
         if (item.id === id) {
           item.enable = enable;
         }
-
-        console.log(action.payload);
-        
       });
     },
   },

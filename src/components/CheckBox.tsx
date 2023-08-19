@@ -13,7 +13,6 @@ const CheckBox: React.FC<CheckBoxProps> = ({ data }) => {
     dispatch(
       eventActions.setEventRecordEnable({ id: data.id, enable: !data.enable })
     );
-    console.log("Dispatched");
   };
 
   return (

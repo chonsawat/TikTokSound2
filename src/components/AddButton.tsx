@@ -15,7 +15,7 @@ const AddButton: React.FC<AddButtonProps> = ({ additionalClass }) => {
       eventActions.addEventRecord({
         id: Math.random().toString(),
         enable: true,
-        event: "following",
+        event: null,
         volume: 0.2,
         sound:
           "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\fart.wav",

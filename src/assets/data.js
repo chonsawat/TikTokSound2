@@ -50,6 +50,7 @@ export const eventRecords = [
 ];
 
 export const events = [
+  { label: "Please select", value: null },
   { label: "Following", value: "following" },
   { label: "Subcribe", value: "subcribe" },
   { label: "Any Gift", value: "anygift" },

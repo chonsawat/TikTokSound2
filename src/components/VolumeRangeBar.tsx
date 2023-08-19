@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import { useAppDispatch } from "../stores/store";
+import { EventRecordType, eventActions } from "../stores/events/event.slice";
 
 type VolumeRangeBarProps = {
-  percentage: number;
-  onVolumeChange: (event: unknown) => void;
+  data: EventRecordType;
 };
 
-const VolumeRangeBar: React.FC<
-  VolumeRangeBarProps & React.HTMLProps<HTMLInputElement>
-> = ({ percentage, onVolumeChange }) => {
+const VolumeRangeBar: React.FC<VolumeRangeBarProps> = ({ data }) => {
+  const dispatch = useAppDispatch();
+  const [percentage, setPercentage] = useState<number>(data.volume * 100);
+
+  const onVolumeChange = (event: any) => {
+    dispatch(
+      eventActions.setEventRecordVolume({
+        id: data.id,
+        volume: percentage,
+      })
+    );
+    setPercentage(parseFloat(event.target.value));
+  };
+
   return (
     <>
       <label>{percentage.toFixed(0)}%</label>
