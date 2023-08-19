@@ -8,7 +8,6 @@ Todo List
 - Connect to live
 - Change Port Feature
 - Customize Overlay Popups
-- Control sound volume
 - Enable / Disable Sound
 - Change event's sound
 - Change event is existed
@@ -17,6 +16,7 @@ Todo List
 Done List
 - ✅ Create a new event
 - ✅ Delete a existing event
+- ✅ Control sound volume
 
 Example Application Interfaces on lastest update
 ![Alt text](docs/image.png)
