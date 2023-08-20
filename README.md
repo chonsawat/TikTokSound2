@@ -18,5 +18,22 @@ Done List
 - ✅ Delete a existing event
 - ✅ Control sound volume
 
-Example Application Interfaces on lastest update
+## Example Application Interfaces on lastest update
 ![Alt text](docs/image.png)
+
+## Prototype each UI element
+### Delete and Add Event
+![Alt text](docs/demo/Delete.gif)
+![Alt text](docs/demo/EmptyandAdd.gif)
+
+### Enable Event CheckBox
+![Alt text](docs/demo/Enable.gif)
+
+### Select Event Handler
+![Alt text](docs/demo/SelectEventOption.gif)
+
+### Control Audio Volume
+![Alt text](docs/demo/Volume.gif)
+
+## Reference
+- waiting ...
