@@ -11,14 +11,17 @@ const VolumeRangeBar: React.FC<VolumeRangeBarProps> = ({ data }) => {
   const [percentage, setPercentage] = useState<number>(data.volume * 100);
 
   const onVolumeChange = (event: any) => {
+    setPercentage(parseFloat(event.target.value));
+  };
+
+  const onVolumeChangeDone = (event: any) => {
     dispatch(
       eventActions.setEventRecordVolume({
         id: data.id,
         volume: percentage,
       })
     );
-    setPercentage(parseFloat(event.target.value));
-  };
+  }
 
   return (
     <>
@@ -31,6 +34,7 @@ const VolumeRangeBar: React.FC<VolumeRangeBarProps> = ({ data }) => {
         }}
         value={percentage}
         onChange={onVolumeChange}
+        onClickCapture={onVolumeChangeDone}
         placeholder="100"
         min="0"
         max="100"
