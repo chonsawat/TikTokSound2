@@ -13,7 +13,7 @@ type ActionButtonProps = {
   data: EventRecordType;
 };
 
-const styleClass = `flex font-medium text-white hover:underline  py-2 px-4 rounded-lg shadow-lg`;
+const styleClass = `flex font-medium text-white hover:underline  py-2.5 px-5 rounded-lg shadow-lg`;
 
 const ActionButton: React.FC<ActionButtonProps> = ({ action, data }) => {
   const dispatch = useAppDispatch();

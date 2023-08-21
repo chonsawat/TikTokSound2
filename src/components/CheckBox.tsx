@@ -20,10 +20,8 @@ const CheckBox: React.FC<CheckBoxProps> = ({ data }) => {
       <input
         checked={data.enable}
         onChange={onClickHandler}
-        id="default-checkbox"
         type="checkbox"
-        value=""
-        className="w-4 h-4 rounded-lg accent-pink-500"
+        className="p-3 w-4 h-4 text-pink-600 bg-gray-100 border-gray-300 rounded-lg focus:ring-pink-500 focus:ring-0 text-left shadow-inner text-xl"
       />
     </div>
   );
