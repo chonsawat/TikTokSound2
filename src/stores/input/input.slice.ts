@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 type InitialStateType = {
   uid: string;
   port: number;
+  isConnect: boolean;
 };
 
 const initialState: InitialStateType = {
   uid: "@mr.cmmb",
   port: 4751,
+  isConnect: false,
 };
 
 const inputSlice = createSlice({
@@ -18,8 +20,11 @@ const inputSlice = createSlice({
       state.uid = action.payload;
     },
     setPort: (state, action) => {
-        state.port = action.payload;
-    }
+      state.port = action.payload;
+    },
+    setIsConnect: (state, action) => {
+      state.isConnect = action.payload;
+    },
   },
 });
 

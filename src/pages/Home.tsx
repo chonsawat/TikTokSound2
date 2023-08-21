@@ -1,28 +1,16 @@
-import { Button } from "../components/Button";
-import { InputId } from "../components/InputId";
+import { Outlet } from "react-router-dom";
+import Connect from "../features/Connect";
 import EventTable from "../features/EventTable";
-import { tiktokUidSelector } from "../stores/input/input.selector";
-import { useAppSelector } from "../stores/store";
+import { useLocation } from "react-router-dom";
 
 const Home = () => {
-  const uid = useAppSelector(tiktokUidSelector);
-
-  const handleConnectClick = () => {
-    console.log(uid);
-  };
+  const router = useLocation();
 
   return (
     <>
-      <div className="m-10">
-        <div>
-          <h1 className="mt-5 text-3xl font-bold">TikTok Sound</h1>
-          <InputId />
-          <Button onClick={handleConnectClick}>Connect</Button>
-        </div>
-        <div className="mt-5">
-          <EventTable />
-        </div>
-      </div>
+      <Connect pathname={router.pathname}>
+        <Outlet />
+      </Connect>
     </>
   );
 };
