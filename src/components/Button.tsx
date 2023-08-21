@@ -1,11 +1,27 @@
-export const Button: React.FC<React.HTMLProps<HTMLButtonElement>> = (props) => {
+export enum ButtonType {
+  CONNECT,
+  DISCONNECT,
+}
+
+type ButtonProps = {
+  buttonType: ButtonType;
+};
+
+export const Button: React.FC<
+  React.HTMLProps<HTMLButtonElement> & ButtonProps
+> = ({ children, onClick, buttonType }) => {
+  const additionalClass: string =
+    buttonType === ButtonType.CONNECT
+      ? "bg-cyan-400 hover:bg-cyan-600 upper shadow-cyan-600/75"
+      : "bg-rose-600 hover:bg-rose-800 upper shadow-rose-600/75";
+
   return (
     <button
-      onClick={props.onClick}
+      onClick={onClick}
       type="submit"
-      className="ml-5 bg-cyan-500 text-white px-4 py-2 rounded-md hover:bg-cyan-200 hover:text-cyan-500 upper hover:font-semibold shadow-lg shadow-cyan-100 hover:shadow-cyan-500 hover:shadow-md"
+      className={`ml-5 text-white px-4 py-2 rounded-md font-semibold shadow-lg hover:shadow-md ${additionalClass}`}
     >
-      {props.children}
+      {children}
     </button>
   );
 };
