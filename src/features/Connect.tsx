@@ -75,7 +75,6 @@ const Connect: React.FC<React.PropsWithChildren & ConnectProps> = ({
       <div className="m-10">
         <h1 className="mt-5 text-3xl font-bold">TikTok Sound</h1>
         <InputId />
-
         {isConnected ? (
           <Button onClick={onClickHanler} buttonType={ButtonType.DISCONNECT}>
             Disconnect
