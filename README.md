@@ -28,7 +28,9 @@ Done List
 - Enable / Disable Sound Button
 - Adjust sound volume levels
 - Responsive to full screen
-![](https://youtu.be/PXy5gUsQL5c)
+
+YouTube - Preview: https://www.youtube.com/watch?v=PXy5gUsQL5c
+[![](https://img.youtube.com/vi/PXy5gUsQL5c/maxresdefault.jpg)](https://www.youtube.com/watch?v=PXy5gUsQL5c)
 
 ## Backend Application Features updates
 - Get file location by path and parse to file type.
