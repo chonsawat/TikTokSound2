@@ -1,9 +1,11 @@
 import React from "react";
 import AddButton from "./AddButton";
+import { useAppSelector } from "../stores/store";
+import { isEventRecordsIsNullSelector } from "../stores/events/event.selector";
 
-type TableHeaderProps = { isEventRecordIsNull: () => boolean };
+const TableHeader = () => {
+  const isEventRecordsIsNull = useAppSelector(isEventRecordsIsNullSelector);
 
-const TableHeader = ({ isEventRecordIsNull }: TableHeaderProps) => {
   return (
     <>
       <thead className="text-xs text-gray-700 uppercase bg-gray-100">
@@ -11,7 +13,7 @@ const TableHeader = ({ isEventRecordIsNull }: TableHeaderProps) => {
           <th scope="col" className="px-6 py-3 flex items-center">
             <p>Action </p>
             <AddButton
-              additionalClass={isEventRecordIsNull() ? "animate-bounce" : ""}
+              additionalClass={isEventRecordsIsNull ? "animate-bounce" : ""}
             />
           </th>
           <th scope="col" className="px-6 py-3">

@@ -1,29 +1,24 @@
-import React, { useState } from "react";
 import TableHeader from "../components/TableHeader";
 import { TableBody } from "../components/TableBody";
 import EventNotFound from "../components/EventNotFound";
 import { useAppSelector } from "../stores/store";
-import { eventRecordsSelector } from "../stores/events/event.selector";
+import {
+  eventRecordsSelector,
+  isEventRecordsIsNullSelector,
+} from "../stores/events/event.selector";
 
 const EventTable = () => {
   const eventRecords = useAppSelector(eventRecordsSelector);
-
-  const isNull = (data: any[]) => {
-    return data.length === 0;
-  };
-
-  const eventRecordsIsNull = () => {
-    return isNull(eventRecords);
-  };
+  const isEventRecordsIsNull = useAppSelector(isEventRecordsIsNullSelector);
 
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500">
-          <TableHeader isEventRecordIsNull={eventRecordsIsNull} />
+          <TableHeader />
           <TableBody data={eventRecords} />
         </table>
-        {isNull(eventRecords) && <EventNotFound />}
+        {isEventRecordsIsNull && <EventNotFound />}
       </div>
     </>
   );

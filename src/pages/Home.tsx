@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Connect from "../features/Connect";
-import EventTable from "../features/EventTable";
 import { useLocation } from "react-router-dom";
 
 const Home = () => {

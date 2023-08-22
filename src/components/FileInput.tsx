@@ -12,13 +12,13 @@ const FileInput: React.FC<
   Omit<React.HTMLProps<HTMLInputElement>, "data"> & FileInputProps
 > = ({ data }) => {
   const dispatch = useAppDispatch();
-  const ipcRenderer = window.ipcRenderer;
+  const ipcRenderer = (window as any).ipcRenderer;
   const [file, setFile] = useState<string>(data.sound.path);
   const inputRef = useRef<HTMLInputElement>(null);
-  console.log(inputRef.current?.files);
 
   // Maybe move to redux-thunk
   useEffect(() => {
+    let isCancle = false;
     async function getFake() {
       if (data.sound.path) {
         const res = await ipcRenderer.invoke(
@@ -28,10 +28,13 @@ const FileInput: React.FC<
         setFile(res);
       }
     }
-    getFake();
+    if (!isCancle) {
+      getFake();
+    }
+    return () => {
+      isCancle = true;
+    };
   }, []);
-
-  console.log(data.id, "state", file);
 
   // TODO: Reenable
   if (data.sound.path !== undefined) {

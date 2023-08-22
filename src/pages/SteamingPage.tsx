@@ -1,16 +1,9 @@
-import { Link } from "react-router-dom";
 import { LuCopy } from "react-icons/lu";
 import { ToastContainer, toast } from "react-toastify";
-
-import { inputActions } from "../stores/input/input.slice";
-import { useAppDispatch } from "../stores/store";
-import { Button } from "../components/Button";
 
 import "react-toastify/dist/ReactToastify.css";
 
 const SteamingPage = () => {
-  const dispatch = useAppDispatch();
-
   const onClickHandler = () => {
     navigator.clipboard.writeText("http://localhost:5021");
     toast.success("Copy to clipboard!");
@@ -27,7 +20,7 @@ const SteamingPage = () => {
             <code className="bg-slate-200 py-1 px-4 rounded-xl ml-3">
               http://localhost:5021
             </code>
-            <LuCopy className="self-center ml-2"/>
+            <LuCopy className="self-center ml-2" />
           </button>
         </div>
       </div>

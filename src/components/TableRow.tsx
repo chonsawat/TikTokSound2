@@ -1,6 +1,5 @@
-import { EventRecordType, eventActions } from "../stores/events/event.slice";
+import { EventRecordType } from "../stores/events/event.slice";
 import ActionButton, { ActionButtonEnum } from "./ActionButton";
-import { useAppDispatch } from "../stores/store";
 import VolumeRangeBar from "./VolumeRangeBar";
 import CheckBox from "./CheckBox";
 import EventSelection from "./EventSelection";
@@ -11,11 +10,6 @@ type TableRowProps = {
 };
 
 const TableRow = ({ data }: TableRowProps) => {
-  const truncate = (str: string) => {
-    const n = 20;
-    return str.length > n ? <>{str.slice(0, n - 1)}&hellip;</> : str;
-  };
-
   return (
     <>
       <tr className="bg-white border-b">
@@ -36,7 +30,7 @@ const TableRow = ({ data }: TableRowProps) => {
         </td>
         <td id="sound" className="table-data">
           {/* {truncate(data.sound)} */}
-          <FileInput data={data}/>
+          <FileInput data={data} />
         </td>
         <td id="delete" className="table-data">
           <ActionButton data={data} action={ActionButtonEnum.DELETE} />
