@@ -4,53 +4,32 @@ export const eventRecords = [
     enable: true,
     event: "following",
     volume: 0.2,
-    sound:
-      "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\fart.wav",
+    sound: {
+      path: "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\fart.wav",
+    },
   },
   {
     id: "2",
     enable: false,
     event: "anygift",
     volume: 0.5,
-    sound:
-      "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\fart01.wav",
+    sound: {
+      path: "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\fart01.wav",
+    },
   },
   {
     id: "3",
     enable: true,
     event: "rose",
     volume: 0.1,
-    sound:
-      "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\monkey-laugh-102.wav",
-  },
-  {
-    id: "4",
-    enable: true,
-    event: "following",
-    volume: 0.7,
-    sound:
-      "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\fart.wav",
-  },
-  {
-    id: "5",
-    enable: true,
-    event: "anygift",
-    volume: 0.5,
-    sound:
-      "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\fart01.wav",
-  },
-  {
-    id: "6",
-    enable: false,
-    event: "rose",
-    volume: 1,
-    sound:
-      "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\monkey-laugh-102.wav",
+    sound: {
+      path: "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\monkey-laugh-102.wav",
+    },
   },
 ];
 
 export const events = [
-  { label: "Please select", value: null },
+  { label: "Please select", value: undefined },
   { label: "Following", value: "following" },
   { label: "Subcribe", value: "subcribe" },
   { label: "Any Gift", value: "anygift" },

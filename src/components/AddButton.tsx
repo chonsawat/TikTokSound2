@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useId } from "react";
 import { useAppDispatch } from "../stores/store";
 import { eventActions } from "../stores/events/event.slice";
 import { MdAdd } from "react-icons/md";
+import { v4 as uuid } from "uuid";
 
 type AddButtonProps = {
   additionalClass: string;
@@ -9,16 +10,16 @@ type AddButtonProps = {
 
 const AddButton: React.FC<AddButtonProps> = ({ additionalClass }) => {
   const dispatch = useAppDispatch();
+  const id = uuid();
 
   const onClickHandle = () => {
     dispatch(
       eventActions.addEventRecord({
-        id: Math.random().toString(),
+        id,
         enable: true,
         event: null,
         volume: 0.2,
-        sound:
-          "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\fart.wav",
+        sound: {},
       })
     );
   };
@@ -30,7 +31,7 @@ const AddButton: React.FC<AddButtonProps> = ({ additionalClass }) => {
     >
       <div className="flex">
         <p className="p-[4px] center text-white font-bold">ADD </p>
-        <MdAdd className="self-center text-white animate-pulse"/>
+        <MdAdd className="self-center text-white animate-pulse" />
       </div>
     </button>
   );

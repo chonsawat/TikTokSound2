@@ -1,9 +1,11 @@
 # TikTok Sound 
 TikTok Sound is an application use can easy connect to your live for create sound effects player url that can be used to overlay in Streaming Apps like OBS, TikTok Live, etc.
 
-Please note: This application is during development.
+Please note: This application is during development. and I develop on free time please waiting for 3-6 months (might be over estimated) a first protrotype version might be available.
 
-Todo List
+More Details: I have planed to make this app as open-source but still not add a license yet because I feel complicated on each license for now.
+
+Todo List Roadmap
 - 🚀 User Interface
 - Connect to live
 - Change Port Feature
@@ -19,22 +21,17 @@ Done List
 - ✅ Control sound volume
 
 ## Example Application Interfaces on lastest update
-## Example Application Interfaces on lastest update
-![Alt text](docs/image.png)
+- Add new event
+- Delete existing event
+- Browse sound files
+- Select event from selection list
+- Enable / Disable Sound Button
+- Adjust sound volume levels
+- Responsive to full screen
+![](https://youtu.be/PXy5gUsQL5c)
 
-## Prototype each UI element
-### Delete and Add Event
-![Alt text](docs/demo/Delete.gif)
-![Alt text](docs/demo/EmptyandAdd.gif)
-
-### Enable Event CheckBox
-![Alt text](docs/demo/Enable.gif)
-
-### Select Event Handler
-![Alt text](docs/demo/SelectEventOption.gif)
-
-### Control Audio Volume
-![Alt text](docs/demo/Volume.gif)
+## Backend Application Features updates
+- Get file location by path and parse to file type.
 
 ## Reference
 - waiting ...

@@ -4,6 +4,7 @@ import { useAppDispatch } from "../stores/store";
 import VolumeRangeBar from "./VolumeRangeBar";
 import CheckBox from "./CheckBox";
 import EventSelection from "./EventSelection";
+import FileInput from "./FileInput";
 
 type TableRowProps = {
   data: EventRecordType;
@@ -34,7 +35,8 @@ const TableRow = ({ data }: TableRowProps) => {
           <EventSelection data={data} />
         </td>
         <td id="sound" className="table-data">
-          {truncate(data.sound)}
+          {/* {truncate(data.sound)} */}
+          <FileInput data={data}/>
         </td>
         <td id="delete" className="table-data">
           <ActionButton data={data} action={ActionButtonEnum.DELETE} />

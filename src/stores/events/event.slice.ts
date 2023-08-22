@@ -2,17 +2,22 @@ import { createSlice } from "@reduxjs/toolkit";
 import { eventRecords } from "../../assets/data";
 import { events } from "../../assets/data";
 
+export type SoundType = {
+  path: string;
+  fileInputRef?: React.RefObject<HTMLInputElement>;
+};
+
 export type EventRecordType = {
   id: string;
   enable: boolean;
   event: string;
   volume: number;
-  sound: string;
+  sound: SoundType;
 };
 
 export type EventType = {
   label: string;
-  value: string;
+  value?: string;
 };
 
 type initialStateType = {
@@ -48,9 +53,17 @@ const eventSlice = createSlice({
     },
     setEventRecordEnable: (state, action) => {
       state.eventRecords.find((item) => {
-        const {id, enable} = action.payload;
+        const { id, enable } = action.payload;
         if (item.id === id) {
           item.enable = enable;
+        }
+      });
+    },
+    setEventRecordSound: (state, action) => {
+      state.eventRecords.find((item) => {
+        const { id, soundPath } = action.payload;
+        if (item.id === id) {
+          item.sound.path = soundPath;
         }
       });
     },
