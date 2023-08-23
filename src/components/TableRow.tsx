@@ -1,5 +1,5 @@
 import { EventRecordType } from "../stores/events/event.slice";
-import ActionButton, { ActionButtonEnum } from "./ActionButton";
+import ActionButton, { ActionButtonEnum } from "./Button/ActionButton";
 import VolumeRangeBar from "./VolumeRangeBar";
 import CheckBox from "./CheckBox";
 import EventSelection from "./EventSelection";

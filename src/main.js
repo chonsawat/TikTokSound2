@@ -18,6 +18,7 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true,
+      webSecurity: false,
     },
     icon: "src/assets/icon/icon.ico",
     autoHideMenuBar: true,
@@ -88,7 +89,7 @@ app.whenReady().then(() => {
   ipcMain.handle("getFileFromPath", (event, path) => {
     // console.log("path:", path);
     const file = url.pathToFileURL(path);
-    console.log(file.href)
+    console.log(file.href);
     return file.href;
   });
 });

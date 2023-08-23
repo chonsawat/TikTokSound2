@@ -3,6 +3,7 @@ import { EventRecordType, eventActions } from "../stores/events/event.slice";
 import { useEffect } from "react";
 import { ipcRendererType } from "../services/ipcRenderer.type";
 import { useAppDispatch } from "../stores/store";
+import { getFileFromPath } from "../utils/file";
 
 type FileInputProps = {
   data: EventRecordType;
@@ -16,37 +17,42 @@ const FileInput: React.FC<
   const [file, setFile] = useState<string>(data.sound.path);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Convert path to file url
   // Maybe move to redux-thunk
   useEffect(() => {
     let isCancle = false;
-    async function getFake() {
-      if (data.sound.path) {
-        const res = await ipcRenderer.invoke(
-          ipcRendererType.getFileFromPath,
-          data.sound.path
-        );
-        setFile(res);
-      }
-    }
+
     if (!isCancle) {
-      getFake();
+      if (data.sound.path) {
+        getFileFromPath(data.sound.path, setFile);
+      }
     }
     return () => {
       isCancle = true;
     };
   }, []);
 
-  // TODO: Reenable
+  const getFileName = (path: string) => {
+    let filename;
+
+    try {
+      if (path.includes("\\")) {
+        filename = path.split("\\").pop();
+      } else {
+        filename = path.split("/").pop();
+      }
+    } catch (err) {
+      alert(`${err.code}: ${err.message}`);
+    }
+    return filename;
+  };
+
+  // TODO: Re-enable
   if (data.sound.path !== undefined) {
     if (inputRef.current) {
       try {
-        let filename;
-        // console.log("fileInput found", inputRef);
-        if (file.includes("\\")) {
-          filename = file.split("\\").pop();
-        } else {
-          filename = file.split("/").pop();
-        }
+        const filename = getFileName(file);
+
         const myFile = new File([file], filename as string, {
           type: "audio/*",
           lastModified: Date.now(),
@@ -56,13 +62,11 @@ const FileInput: React.FC<
         const dataTransfer = new DataTransfer();
         dataTransfer.items.add(myFile);
         inputRef.current.files = dataTransfer.files;
-      } catch (error) {
-        if (error.code === undefined) {
-          // console.log("My Error" + error.message);
+      } catch (err) {
+        if (err.code === undefined) {
           console.log(data.sound);
-          // console.log("Descript file:", file);
         } else {
-          alert(`${error.code}: ${error.message}`);
+          alert(`${err.code}: ${err.message}`);
         }
       }
     }

@@ -1,4 +1,4 @@
-import { Button, ButtonType } from "../components/Button";
+import { Button, ButtonType } from "../components/Button/Button";
 import { InputId } from "../components/InputId";
 import SwitchPageButton from "../components/SwitchPageButton";
 import {

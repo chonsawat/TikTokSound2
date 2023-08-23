@@ -1,5 +1,5 @@
 import React from "react";
-import AddButton from "./AddButton";
+import AddButton from "./Button/AddButton";
 import { useAppSelector } from "../stores/store";
 import { isEventRecordsIsNullSelector } from "../stores/events/event.selector";
 

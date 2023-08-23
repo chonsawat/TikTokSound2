@@ -1,6 +1,6 @@
-import React, { useId } from "react";
-import { useAppDispatch } from "../stores/store";
-import { eventActions } from "../stores/events/event.slice";
+import React from "react";
+import { useAppDispatch } from "../../stores/store";
+import { eventActions } from "../../stores/events/event.slice";
 import { MdAdd } from "react-icons/md";
 import { v4 as uuid } from "uuid";
 

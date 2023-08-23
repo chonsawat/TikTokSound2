@@ -14,7 +14,7 @@ export const eventRecords = [
     event: "anygift",
     volume: 0.5,
     sound: {
-      path: "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\fart01.wav",
+      path: "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\fart-sm.wav",
     },
   },
   {
