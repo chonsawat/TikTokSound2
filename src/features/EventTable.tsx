@@ -1,5 +1,5 @@
-import TableHeader from "../components/TableHeader";
-import { TableBody } from "../components/TableBody";
+import TableHeader from "../components/Table/TableHeader";
+import { TableBody } from "../components/Table/TableBody";
 import EventNotFound from "../components/EventNotFound";
 import { useAppSelector } from "../stores/store";
 import {
@@ -24,4 +24,4 @@ const EventTable = () => {
   );
 };
 
-export default EventTable;
+export default EventTable;  

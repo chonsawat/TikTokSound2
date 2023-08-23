@@ -1,20 +1,30 @@
-import { EventRecordType } from "../stores/events/event.slice";
-import ActionButton, { ActionButtonEnum } from "./Button/ActionButton";
-import VolumeRangeBar from "./VolumeRangeBar";
-import CheckBox from "./CheckBox";
-import EventSelection from "./EventSelection";
-import FileInput from "./FileInput";
+import { EventRecordType } from "../../stores/events/event.slice";
+import VolumeRangeBar from "../VolumeRangeBar";
+import CheckBox from "../CheckBox";
+import EventSelection from "../EventSelection";
+import FileInput from "../FileInput";
+import { useEffect } from "react";
+import DeleteButton from "../Button/DeleteButton";
+import PlayButton from "../Button/PlayButton";
 
 type TableRowProps = {
   data: EventRecordType;
 };
 
 const TableRow = ({ data }: TableRowProps) => {
+  // Check component did mount
+  useEffect(() => {
+    console.log("TableRow is mounted 🚀");
+
+    return () => {
+      console.log("TableRow is unmounted !!");
+    };
+  }, []);
   return (
     <>
       <tr className="bg-white border-b">
         <td id="play" scope="row" className="table-data">
-          <ActionButton data={data} action={ActionButtonEnum.PLAY} />
+          <PlayButton data={data} />
         </td>
         <td id="volume" className="table-data">
           <VolumeRangeBar data={data} />
@@ -29,11 +39,10 @@ const TableRow = ({ data }: TableRowProps) => {
           <EventSelection data={data} />
         </td>
         <td id="sound" className="table-data">
-          {/* {truncate(data.sound)} */}
           <FileInput data={data} />
         </td>
         <td id="delete" className="table-data">
-          <ActionButton data={data} action={ActionButtonEnum.DELETE} />
+          <DeleteButton data={data} />
         </td>
       </tr>
     </>

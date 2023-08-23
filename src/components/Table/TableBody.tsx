@@ -1,6 +1,5 @@
-import React, { useState } from "react";
 import TableRow from "./TableRow";
-import { EventRecordType } from "../stores/events/event.slice";
+import { EventRecordType } from "../../stores/events/event.slice";
 
 type TableBodyProps = {
   data: EventRecordType[];
