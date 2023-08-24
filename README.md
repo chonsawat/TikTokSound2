@@ -29,6 +29,7 @@ Done List
 ## Example Application Interfaces on lastest update
 Latest - Snapshot
 <video src="docs/demo/TikTokSoundFileInput%20Update.mp4" controls title="Title"></video>
+![docs/demo/TikTokSoundFileInput%20Update.mp4](docs/demo/TikTokSoundFileInput%20Update.mp4)
 
 ## Backend Application Features updates
 - Get file location by path and parse to file type.
