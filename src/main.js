@@ -62,34 +62,15 @@ app.on("activate", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 app.whenReady().then(() => {
-  // Backend
-  ipcMain.on("read", (event) => {
-    const msg = fs.readFileSync(
-      "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\temp.txt"
-    );
-    return msg;
-  });
-
-  ipcMain.handle("fakeFile", () => {
-    const fakeFile = {
-      lastModified: 1691056936807,
-      lastModifiedDate: "Thu Aug 03 2023 17:02:16 GMT+0700 (Indochina Time) {}",
-      name: "fart-sm.wav",
-      path: "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\fart.wav",
-      size: 361156,
-      type: "audio/wav",
-      webkitRelativePath: "",
-    };
-    console.log("path:", fakeFile.path);
-    // console.log("path:", url.pathToFileURL(fakeFile.path));
-    const file = url.pathToFileURL(fakeFile.path);
-    return fs.readFileSync(fakeFile.path);
+  ipcMain.handle("isFileExist", (event, path) => {
+    if (fs.existsSync(path)) {
+      return true
+    }
+    return false;
   });
 
   ipcMain.handle("getFileFromPath", (event, path) => {
-    // console.log("path:", path);
     const file = url.pathToFileURL(path);
-    console.log(file.href);
     return file.href;
   });
 });

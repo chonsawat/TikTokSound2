@@ -1,3 +1,4 @@
 export enum ipcRendererType {
-    getFileFromPath = "getFileFromPath"
+    getFileFromPath = "getFileFromPath",
+    isFileExist = "isFileExist"
 }

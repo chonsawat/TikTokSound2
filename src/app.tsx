@@ -4,8 +4,6 @@ import Home from "./pages/Home";
 import SteamingPage from "./pages/SteamingPage";
 import EventTable from "./features/EventTable";
 
-console.log("App");
-
 const App = () => {
   return (
     <BrowserRouter>

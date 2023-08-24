@@ -6,8 +6,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "./stores/store";
 import App from "./app";
 
-console.log("root");
-
 const element = document.getElementById("root")!;
 const root = createRoot(element);
 root.render(

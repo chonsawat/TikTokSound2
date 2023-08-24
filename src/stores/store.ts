@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import logger from "redux-logger";
 
 import { rootReducer } from "./root.reducer";
 // import persistReducer from "redux-persist/es/persistReducer";
@@ -22,7 +23,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(),
+    }).concat([logger]),
 });
 
 export const persistor = persistStore(store);

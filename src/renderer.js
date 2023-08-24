@@ -28,12 +28,3 @@
 
 import "./index.css";
 import "./root";
-
-console.log("👋 Renderer.js loaded successfully");
-
-// communication with UI components
-// document.addEventListener("click", async () => {
-//   console.log(window.electronAPI.read());
-//   const file = await window.electronAPI.getFakeFile();
-//   console.log("window:", file);
-// });
