@@ -6,21 +6,15 @@ Please note: This application is during development. and I develop on free time 
 More Details: I have planed to make this app as open-source but still not add a license yet because I feel complicated on each license for now.
 
 Todo List Roadmap
-- 🚀 User Interface
+- 🚀 User Interface (Almost done)
 - Connect to live
 - Change Port Feature
 - Customize Overlay Popups
 - Enable / Disable Sound
-- Change event's sound
-- Change event is existed
+- Update State on `eventLists`
 - etc.
 
 Done List
-- ✅ Create a new event
-- ✅ Delete a existing event
-- ✅ Control sound volume
-
-## Example Application Interfaces on lastest update
 - Add new event
 - Delete existing event
 - Browse sound files
@@ -28,9 +22,13 @@ Done List
 - Enable / Disable Sound Button
 - Adjust sound volume levels
 - Responsive to full screen
+- Change event's sound
+- Change event is existed
+- Handler Play on file that does not existed
 
-YouTube - Preview: https://www.youtube.com/watch?v=PXy5gUsQL5c
-[![](https://img.youtube.com/vi/PXy5gUsQL5c/maxresdefault.jpg)](https://www.youtube.com/watch?v=PXy5gUsQL5c)
+## Example Application Interfaces on lastest update
+Latest - Snapshot
+<video src="docs/demo/TikTokSoundFileInput%20Update.mp4" controls title="Title"></video>
 
 ## Backend Application Features updates
 - Get file location by path and parse to file type.
