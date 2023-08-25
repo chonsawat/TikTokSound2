@@ -10,25 +10,26 @@ import { rootReducer } from "./root.reducer";
 // import persistReducer from "redux-persist/es/persistReducer";
 
 const persistConfig = {
-  key: "root",
-  storage,
-  stateReconciler: autoMergeLevel2,
+	key: "root",
+	storage,
+	stateReconciler: autoMergeLevel2,
+	blacklist: ["input"]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-  reducer: persistedReducer,
-  devTools: true,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }).concat([logger]),
+	reducer: persistedReducer,
+	devTools: true,
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: false,
+		}).concat([logger]),
 });
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
 
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch;
