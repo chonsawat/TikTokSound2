@@ -1,7 +1,14 @@
 import { ipcRendererType } from "../services/ipcRenderer.type";
 
+/**
+ * @constant ipcRenderer A class object to send event to the electron backend
+ */
 const ipcRenderer = (window as any).ipcRenderer;
 
+/**
+ * @function isFileExist Returns a boolean is true if a given file exists.
+ * @param path path to the file in local machine
+ */
 export const isFileExist = async (path: string): Promise<boolean> => {
 	const isFileExisted = await ipcRenderer.invoke(
 		ipcRendererType.isFileExist,
@@ -10,6 +17,11 @@ export const isFileExist = async (path: string): Promise<boolean> => {
 	return isFileExisted;
 };
 
+/**
+ * @function getFileFromPath Returns file of a given path
+ * @param path path to the file in local machine
+ * @param customFunc setState function to execute after convert raw path to file path
+ */
 export const getFileFromPath = async (
 	path: string,
 	customFunc: (newState: string) => void
@@ -31,6 +43,11 @@ export const getFileFromPath = async (
 	}
 };
 
+/**
+ * @function getFileName get name of the file from path
+ * @param path path to the file in local machine
+ * @returns filename
+ */
 export const getFileName = (path: string): string | undefined => {
 	let filename;
 	try {
@@ -45,6 +62,11 @@ export const getFileName = (path: string): string | undefined => {
 	return filename;
 };
 
+/**
+ * @function updateInputFileName replace file from path to file in RefObject
+ * @param inputRef RefOject of input type=file
+ * @param file file from path like file:///path/to/file
+ */
 export const updateInputFileName = (
 	inputRef: React.RefObject<HTMLInputElement>,
 	file: string

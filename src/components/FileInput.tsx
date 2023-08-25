@@ -29,7 +29,6 @@ const FileInput: React.FC<
 		};
 	}, []);
 
-	// TODO: Re-enable
 	if (data.sound.path !== undefined) {
 		fileUtils.updateInputFileName(inputRef, file);
 	}
