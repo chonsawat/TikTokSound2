@@ -1,94 +1,110 @@
+import { BsDisplay } from "react-icons/bs";
+import { IoSettings } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 import { Button, ButtonType } from "../components/Button/Button";
-import { InputId } from "../components/InputId";
-import SwitchPageButton from "../components/SwitchPageButton";
+import InputId from "../components/InputId";
+import InputPort from "../components/InputPort";
+import SwitchPageButton from "../components/Button/SwitchPageButton";
 import {
-  isConnectSelector,
-  tiktokUidSelector,
+	isConnectSelector,
+	tiktokUidSelector,
 } from "../stores/input/input.selector";
 import { inputActions } from "../stores/input/input.slice";
 import { useAppDispatch, useAppSelector } from "../stores/store";
-import { useNavigate, Link } from "react-router-dom";
-import { IoSettings } from "react-icons/io5";
-import { BsDisplay } from "react-icons/bs";
+import SettingButton from "../components/Button/SettingButton";
+import PortSetting from "./port-setting/PortSetting";
+import DisConnectButton from "../components/Button/DisConnectButton";
+import ConnectButton from "../components/Button/ConnectButton";
 
 type ConnectProps = {
-  pathname: string;
+	pathname: string;
 };
 
 type SwitchComponentProps = {
-  isConnected: boolean;
-  pathname: string;
+	isConnected: boolean;
+	pathname: string;
 };
 
 const SwitchComponent: React.FC<SwitchComponentProps> = ({
-  isConnected,
-  pathname,
+	isConnected,
+	pathname,
 }) => {
-  return (
-    <>
-      {isConnected &&
-        (pathname !== "/stream" ? (
-          <SwitchPageButton toPage="stream">
-            <div className="flex flex-row">
-              <p>Stream</p>
-              <BsDisplay
-                size={20}
-                className="animate-bounce ml-3 self-center"
-              />
-            </div>
-          </SwitchPageButton>
-        ) : (
-          <SwitchPageButton toPage="/">
-            <div className="flex flex-row">
-              Setting
-              <IoSettings size={20} className="animate-spin ml-3 self-center" />
-            </div>
-          </SwitchPageButton>
-        ))}
-    </>
-  );
+	return (
+		<>
+			{isConnected &&
+				(pathname !== "/stream" ? (
+					<SwitchPageButton toPage="stream">
+						<div className="flex flex-row">
+							<p>Stream</p>
+							<BsDisplay
+								size={20}
+								className="animate-bounce ml-3 self-center"
+							/>
+						</div>
+					</SwitchPageButton>
+				) : (
+					<SwitchPageButton toPage="/">
+						<div className="flex flex-row">
+							Setting
+							<IoSettings size={20} className="animate-spin ml-3 self-center" />
+						</div>
+					</SwitchPageButton>
+				))}
+		</>
+	);
 };
 
 const Connect: React.FC<React.PropsWithChildren & ConnectProps> = ({
-  children,
-  pathname,
+	children,
+	pathname,
 }) => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
-  const uid = useAppSelector(tiktokUidSelector);
-  const isConnected = useAppSelector(isConnectSelector);
+	const uid = useAppSelector(tiktokUidSelector);
+	const isConnected = useAppSelector(isConnectSelector);
 
-  const onClickHanler = () => {
-    console.log(uid);
-    dispatch(inputActions.setIsConnect(!isConnected));
+	const onClickHandler = () => {
+		console.log(uid);
+		dispatch(inputActions.setIsConnect(!isConnected));
 
-    if (!isConnected) {
-      navigate("stream");
-    } else {
-      navigate("/");
-    }
-  };
+		if (!isConnected) {
+			navigate("stream");
+		} else {
+			navigate("/");
+		}
+	};
 
-  return (
-    <>
-      <div className="m-10">
-        <h1 className="mt-5 text-3xl font-bold">TikTok Sound</h1>
-        <InputId />
-        {isConnected ? (
-          <Button onClick={onClickHanler} buttonType={ButtonType.DISCONNECT}>
-            Disconnect
-          </Button>
-        ) : (
-          <Button onClick={onClickHanler} buttonType={ButtonType.CONNECT}>
-            Connect
-          </Button>
-        )}
-        <SwitchComponent pathname={pathname} isConnected={isConnected} />
-        <div className="mt-5">{children}</div>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<div className="m-10">
+				<h1 className="mt-5 text-3xl font-bold">TikTok Sound</h1>
+				<div className="flex mt-3">
+					<div>
+						<label
+							className="block text-gray-700 text-sm font-bold mb-2"
+							htmlFor="username"
+						>
+							@uniqueId
+						</label>
+						<InputId id="username" value={uid} />
+					</div>
+					<div className="flex">
+						<PortSetting />
+					</div>
+					<div className="flex pt-7">
+						{isConnected ? (
+							<DisConnectButton onClick={onClickHandler} />
+						) : (
+							<ConnectButton onClick={onClickHandler} />
+						)}
+						<SwitchComponent pathname={pathname} isConnected={isConnected} />
+					</div>
+				</div>
+				<div className="mt-5">{children}</div>
+			</div>
+		</>
+	);
 };
 
 export default Connect;

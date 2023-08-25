@@ -4,7 +4,6 @@ import { EventRecordType } from "../../stores/events/event.slice";
 import { ImSpinner7 } from "react-icons/im";
 import ReactAudioPlayer from "react-audio-player";
 import { getFileFromPath } from "../../utils/file";
-import * as fileUtils from "../../utils/file";
 import usePlayButton from "../../hooks/usePlayButton";
 
 type PlayButtonProps = {
