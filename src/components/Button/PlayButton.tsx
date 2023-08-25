@@ -5,6 +5,7 @@ import { ImSpinner7 } from "react-icons/im";
 import ReactAudioPlayer from "react-audio-player";
 import { getFileFromPath } from "../../utils/file";
 import * as fileUtils from "../../utils/file";
+import usePlayButton from "../../hooks/usePlayButton";
 
 type PlayButtonProps = {
 	data: EventRecordType;
@@ -12,55 +13,36 @@ type PlayButtonProps = {
 
 const styleClass = `flex font-semibold py-2.5 px-5 rounded-lg shadow-lg`;
 
-const PlayButton: React.FC<PlayButtonProps> = ({ data }) => {
-	const [isPlaying, setIsPlaying] = useState(false);
+const PlayBtn = () => (
+	<>
+		<p className="">PAUSE</p>
+		<ImSpinner7 className="animate-spin ml-2 self-center" />
+	</>
+);
+const PauseBtn = () => (
+	<>
+		<p className="">PLAY</p>{" "}
+		<MdPlayArrow size={20} className="ml-3 self-center" />
+	</>
+);
+
+const PlayButton: React.FC<PlayButtonProps> = ({ data: { volume, sound } }) => {
+	const { isPlaying, onPlayButtonClick } = usePlayButton(sound.path);
 	const [audioPath, setAudioPath] = useState<string | undefined>();
 	const audioRef = useRef<ReactAudioPlayer | null>(null);
-	const audioVolume = data.volume;
 
 	useEffect(() => {
 		let isOnThisPage = true;
 		if (isOnThisPage) {
-			getFileFromPath(data.sound.path, setAudioPath);
+			getFileFromPath(sound.path, setAudioPath);
 		}
 		return () => {
 			isOnThisPage = false;
 		};
-	}, [audioPath, data]);
+	}, [audioPath, sound.path]);
 
 	const onPlayToggleHandler = async () => {
-		const audioEvent = audioRef.current?.audioEl.current;
-		const audioSrcIsExist: boolean = await fileUtils.isFileExist(
-			data.sound.path!
-		);
-
-		// Aleart
-		if (!audioSrcIsExist) {
-			if (data.sound.path === undefined) {
-				alert(`Please, select your sound first!`);
-			} else {
-				alert(`File: ${data.sound.path} does not exist`);
-			}
-			return;
-		}
-
-		if (!isPlaying) {
-			// Play a audio and loop until pause button was clicked.
-			if (audioEvent && audioSrcIsExist) {
-				audioEvent.play();
-				audioEvent.loop = true;
-			}
-
-			setIsPlaying((current) => !current);
-		} else {
-			// Stop sound playback
-			if (audioEvent && audioSrcIsExist) {
-				audioEvent.pause();
-				audioEvent.load();
-			}
-
-			setIsPlaying((current) => !current);
-		}
+		onPlayButtonClick(audioRef);
 	};
 
 	const isPlayingColor = isPlaying
@@ -74,22 +56,12 @@ const PlayButton: React.FC<PlayButtonProps> = ({ data }) => {
 				href="#"
 				className={`${styleClass} ${isPlayingColor} no-underline`}
 			>
-				{isPlaying ? (
-					<>
-						<p className="">PAUSE</p>{" "}
-						<ImSpinner7 className="animate-spin ml-2 self-center" />
-					</>
-				) : (
-					<>
-						<p className="">PLAY</p>{" "}
-						<MdPlayArrow size={20} className="ml-3 self-center" />
-					</>
-				)}
+				{isPlaying ? <PlayBtn /> : <PauseBtn />}
 			</a>
 			<ReactAudioPlayer
 				ref={audioRef}
 				src={audioPath}
-				volume={audioVolume}
+				volume={volume}
 			></ReactAudioPlayer>
 		</div>
 	);
