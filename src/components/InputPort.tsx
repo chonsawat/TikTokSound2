@@ -2,13 +2,17 @@ import { useAppDispatch, useAppSelector } from "../stores/store";
 import { inputActions } from "../stores/input/input.slice";
 import { portSelector } from "../stores/input/input.selector";
 
-const InputPort: React.FC<React.HTMLProps<HTMLInputElement>> = ({
+type InputPortProps = {
+	setPort: (port: string) => void;
+	port: string;
+} & React.HTMLProps<HTMLButtonElement>;
+
+const InputPort: React.FC<InputPortProps> = ({
 	id,
 	placeholder,
+	port,
+	setPort,
 }) => {
-	const dispatch = useAppDispatch();
-	const port = useAppSelector(portSelector);
-
 	return (
 		<div className="flex flex-row">
 			<input
@@ -17,7 +21,7 @@ const InputPort: React.FC<React.HTMLProps<HTMLInputElement>> = ({
 				value={port}
 				id={id}
 				placeholder={placeholder}
-				onChange={(event) => dispatch(inputActions.setPort(event.target.value))}
+				onChange={(event) => setPort(event.target.value)}
 			/>
 		</div>
 	);

@@ -90,7 +90,7 @@ const Connect: React.FC<React.PropsWithChildren & ConnectProps> = ({
 						<InputId id="username" value={uid} />
 					</div>
 					<div className="flex">
-						<PortSetting />
+						<PortSetting isConnected={isConnected}/>
 					</div>
 					<div className="flex pt-7">
 						{isConnected ? (
