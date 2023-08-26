@@ -65,9 +65,13 @@ app.on("activate", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 app.whenReady().then(() => {
+	let server = undefined;
+	let router = undefined;
 	const appExpress = express();
 	appExpress.use(morgan("tiny"));
-	let server;
+	appExpress.use((req, res, next) => {
+		router(req, res, next);
+	});
 
 	ipcMain.handle("isFileExist", (event, path) => {
 		if (fs.existsSync(path)) {
@@ -81,26 +85,33 @@ app.whenReady().then(() => {
 		return file.href;
 	});
 
-	ipcMain.handle("hostServerOnPort", (event, port) => {
+	ipcMain.on("hostServerOnPort", (event, port) => {
 		// Check if the port is already in use
 		const isPortInUse = (port) => {
 			const result = exec(`netstat -ano | findstr /i "${port}"`);
 			return result.stdout.length !== 0;
 		};
-
-		appExpress.get("/", (req, res) => {
-			res.send("This is response from http://localhost:" + port);
-		});
-
+		
 		if (isPortInUse(!port)) {
+			router = express.Router();
+			router.get("/", (req, res) => {
+				res.send("This is response from http://localhost:" + port);
+				
+				// TODO: Streaming algorithms
+				console.log("Streaming Algorithms", Math.random());
+				console.log("This is random", Math.random());
+			});
+
 			server = appExpress.listen(port, (err) => {
 				console.log("Server listening on port " + port);
 			});
 		}
 	});
 
-	ipcMain.handle("closeServerOnPort", (event, port) => {
+	ipcMain.on("closeServerOnPort", (event, port) => {
 		console.log("Close server http://localhost:" + port);
-		if (server) server.close();
+		if (server) {
+			server.close();
+		}
 	});
 });

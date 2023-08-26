@@ -21,12 +21,12 @@ const SteamingPage = () => {
 		console.log("isHostServer", isHostServer);
 
 		if (isHostServer) {
-			ipcRenderer.invoke(ipcRendererType.hostServerOnPort, port);
+			ipcRenderer.send(ipcRendererType.hostServerOnPort, port);
 		}
 
 		return () => {
 			if (isHostServer) {
-				ipcRenderer.invoke(ipcRendererType.closeServerOnPort, port);
+				ipcRenderer.send(ipcRendererType.closeServerOnPort, port);
 				setIsHostServer(false);
 			}
 		};
