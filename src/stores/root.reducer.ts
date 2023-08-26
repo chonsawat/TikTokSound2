@@ -12,7 +12,13 @@ const inputPersistConfig = {
     blacklist: ["isConnect"]
 };
 
+const eventPersistConfig = {
+	key: "event",
+	storage,
+    blacklist: ["events"]
+};
+
 export const rootReducer = combineReducers({
 	input: persistReducer(inputPersistConfig, inputReducer),
-	event: eventReducer,
+	event: persistReducer(eventPersistConfig, eventReducer),
 });

@@ -13,7 +13,7 @@ const persistConfig = {
 	key: "root",
 	storage,
 	stateReconciler: autoMergeLevel2,
-	blacklist: ["input"]
+	blacklist: ["input", "event"]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
