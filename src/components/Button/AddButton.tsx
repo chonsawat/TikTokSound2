@@ -17,7 +17,7 @@ const AddButton: React.FC<AddButtonProps> = ({ additionalClass }) => {
       eventActions.addEventRecord({
         id,
         enable: true,
-        event: null,
+        event: "Please select",
         volume: 0.2,
         sound: {},
       })

@@ -52,18 +52,26 @@ const eventSlice = createSlice({
 			});
 		},
 		setEventRecordEnable: (state, action) => {
+			const { id, enable } = action.payload;
 			state.eventRecords.find((item) => {
-				const { id, enable } = action.payload;
 				if (item.id === id) {
 					item.enable = enable;
 				}
 			});
 		},
 		setEventRecordSound: (state, action) => {
+			const { id, soundPath } = action.payload;
 			state.eventRecords.find((item) => {
-				const { id, soundPath } = action.payload;
 				if (item.id === id) {
 					item.sound.path = soundPath;
+				}
+			});
+		},
+		setEventRecordEvent: (state, action) => {
+			const { id, event } = action.payload;
+			state.eventRecords.find((item) => {
+				if (item.id === id) {
+					item.event = event;
 				}
 			});
 		},

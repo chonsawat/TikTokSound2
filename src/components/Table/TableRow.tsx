@@ -3,7 +3,6 @@ import VolumeRangeBar from "../VolumeRangeBar";
 import CheckBox from "../CheckBox";
 import EventSelection from "../EventSelection";
 import FileInput from "../FileInput";
-import { useEffect } from "react";
 import DeleteButton from "../Button/DeleteButton";
 import PlayButton from "../Button/PlayButton";
 

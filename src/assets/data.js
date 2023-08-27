@@ -42,10 +42,30 @@ export const eventRecords = [
 // ];
 
 export const events = [
-	{ name: "Please select", id: uuid() },
-	{ name: "Following", id: uuid() },
-	{ name: "Subcribe", id: uuid() },
-	{ name: "Any Gift", id: uuid() },
+	{
+		name: "Please select",
+		id: uuid(),
+		imageUrl:
+			"https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
+	},
+	{
+		name: "Following",
+		id: uuid(),
+		imageUrl:
+			"https://freesvg.org/img/abstract-user-flat-3.png",
+	},
+	{
+		name: "Subcribe",
+		id: uuid(),
+		imageUrl:
+			"https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/63136/golden-crown-clipart-md.png",
+	},
+	{
+		name: "Any Gift",
+		id: uuid(),
+		imageUrl:
+			"https://cdn.pixabay.com/photo/2019/12/16/15/47/vector-4699584_1280.png",
+	},
 	{
 		id: 6093,
 		name: "Football",
