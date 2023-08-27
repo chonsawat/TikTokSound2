@@ -1,21 +1,29 @@
+import { useEffect, useState } from "react";
 import { EventRecordType } from "../../stores/events/event.slice";
-import VolumeRangeBar from "../VolumeRangeBar";
+import * as fileUtils from "../../utils/file";
+import DeleteButton from "../Button/DeleteButton";
+import PlayButton from "../Button/PlayButton";
 import CheckBox from "../CheckBox";
 import EventSelection from "../EventSelection";
 import FileInput from "../FileInput";
-import DeleteButton from "../Button/DeleteButton";
-import PlayButton from "../Button/PlayButton";
+import VolumeRangeBar from "../VolumeRangeBar";
 
 type TableRowProps = {
 	data: EventRecordType;
 };
 
 const TableRow = ({ data }: TableRowProps) => {
+	const [audioPath, setAudioPath] = useState<string | undefined>();
+
+	useEffect(() => {
+		fileUtils.getFileFromPath(data.sound.path, setAudioPath);
+	}, [data.sound.path]);
+
 	return (
 		<>
 			<tr className="bg-white border-b">
 				<td id="play" scope="row" className="table-data">
-					<PlayButton data={data} />
+					<PlayButton data={data} audioPath={audioPath} />
 				</td>
 				<td id="volume" className="table-data">
 					<VolumeRangeBar data={data} />
@@ -30,7 +38,7 @@ const TableRow = ({ data }: TableRowProps) => {
 					<EventSelection data={data} />
 				</td>
 				<td id="sound" className="table-data">
-					<FileInput data={data} />
+					<FileInput data={data} audioPath={audioPath} />
 				</td>
 				<td id="delete" className="table-data">
 					<DeleteButton data={data} />

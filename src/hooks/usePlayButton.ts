@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import * as fileUtils from "../utils/file";
+import { useState } from "react";
 import ReactAudioPlayer from "react-audio-player";
+import * as fileUtils from "../utils/file";
 
 const aleartHandler = (path: string) => {
 	if (path === undefined) {
@@ -12,21 +12,29 @@ const aleartHandler = (path: string) => {
 
 const usePlayButton = (path: string) => {
 	const [isPlaying, setIsPlaying] = useState<boolean>(false);
-	const [audioSrcIsExist, setAudioSrcIsExist] = useState<boolean>(false);
 
-	useEffect(() => {
-		fileUtils.isFileExist(path!).then((res) => setAudioSrcIsExist(res));
-	}, [path]);
-
-	const onPlayButtonClick = (audioRef: React.RefObject<ReactAudioPlayer>) => {
+	const onPlayButtonClick = async (
+		audioRef: React.RefObject<ReactAudioPlayer>
+	) => {
+		let isLoading = true;
+		let audioSrcIsExist = false;
 		const audioEvent = audioRef.current?.audioEl.current;
 
-		if (!audioSrcIsExist) {
+		audioSrcIsExist = await fileUtils.isFileExist({
+			path: path!,
+			reason: "Playing sound",
+		});
+		isLoading = false;
+
+		if (!audioSrcIsExist && !isLoading) {
 			aleartHandler(path);
+			audioEvent?.pause();
+			audioEvent?.load();
+			setIsPlaying(false);
 			return;
 		}
 
-		if (!isPlaying) {
+		if (!isPlaying && !isLoading) {
 			// Play a audio and loop until pause button was clicked.
 			if (audioEvent && audioSrcIsExist) {
 				audioEvent.play();

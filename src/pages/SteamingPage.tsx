@@ -17,7 +17,7 @@ const SteamingPage = () => {
 
 	useEffect(() => {
 		window.onbeforeunload = () => {
-			console.log("Don't loading");
+			console.log("No Permission to loading");
 			return true;
 		};
 		return () => {

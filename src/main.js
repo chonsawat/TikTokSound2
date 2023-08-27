@@ -72,9 +72,13 @@ app.whenReady().then(() => {
 	appExpress.use((req, res, next) => {
 		router(req, res, next);
 	});
+	let counter = 1;
 
-	ipcMain.handle("isFileExist", (event, path) => {
-		if (fs.existsSync(path)) {
+	ipcMain.handle("isFileExist", (event, {path, reason}) => {
+		const isExist = fs.existsSync(path)
+		console.log(`${counter} : ${isExist} : ${reason} => ${path}`);
+		counter = counter + 1;
+		if (isExist) {
 			return true;
 		}
 		return false;

@@ -70,7 +70,7 @@ const Connect: React.FC<React.PropsWithChildren & ConnectProps> = ({
 	const ipcRenderer = (window as any).ipcRenderer;
 
 	const onClickHandler = () => {
-		console.log(uid);
+		// console.log(uid);
 		dispatch(inputActions.setIsConnect(!isConnected));
 		if (isConnected) {
 			ipcRenderer.send(ipcRendererType.closeServerOnPort, port);

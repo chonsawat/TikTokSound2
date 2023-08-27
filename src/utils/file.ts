@@ -9,11 +9,17 @@ const ipcRenderer = (window as any).ipcRenderer;
  * @function isFileExist Returns a boolean is true if a given file exists.
  * @param path path to the file in local machine
  */
-export const isFileExist = async (path: string): Promise<boolean> => {
-	const isFileExisted = await ipcRenderer.invoke(
-		ipcRendererType.isFileExist,
-		path
-	);
+export const isFileExist = async ({
+	path,
+	reason,
+}: {
+	path: string;
+	reason: string;
+}): Promise<boolean> => {
+	const isFileExisted = await ipcRenderer.invoke(ipcRendererType.isFileExist, {
+		path,
+		reason,
+	});
 	return isFileExisted;
 };
 
@@ -27,7 +33,7 @@ export const getFileFromPath = async (
 	customFunc: (newState: string) => void
 ): Promise<void> => {
 	try {
-		if (await isFileExist(path)) {
+		if (await isFileExist({ path: path, reason: "Loading File" })) {
 			const res = await ipcRenderer.invoke(
 				ipcRendererType.getFileFromPath,
 				path

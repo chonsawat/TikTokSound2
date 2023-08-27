@@ -7,12 +7,12 @@ const useOutsideClick = (callback: () => void) => {
 		const handleClickOutside = (event: any) => {
 			if (ref.current) {
 				if (!(ref.current as any).contains(event.target)) {
-					console.log("Clicking outside:", event.target);
+					// console.log("Clicking outside:", event.target);
 					callback();
 				} else if (event.target.id === "searchEvent") {
-					console.log("Clicking searchEvent");
+					// console.log("Clicking searchEvent");
 				} else {
-					console.log("Clicking outside:", event.target);
+					// console.log("Clicking outside:", event.target);
 				}
 			}
 		};
@@ -21,7 +21,7 @@ const useOutsideClick = (callback: () => void) => {
 			if (event.which === 27) {
 				callback();
 			}
-			console.log(event.which, event.key);
+			// console.log(event.which, event.key);
 		};
 
 		document.addEventListener("click", handleClickOutside, true);

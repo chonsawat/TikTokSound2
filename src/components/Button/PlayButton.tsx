@@ -1,16 +1,27 @@
-import React, { useState, useRef, useEffect } from "react";
-import { MdPlayArrow } from "react-icons/md";
-import { EventRecordType } from "../../stores/events/event.slice";
-import { ImSpinner7 } from "react-icons/im";
+import React, { useRef } from "react";
 import ReactAudioPlayer from "react-audio-player";
-import { getFileFromPath } from "../../utils/file";
+import { ImSpinner7 } from "react-icons/im";
+import { MdPlayArrow } from "react-icons/md";
+import tw from "tailwind-styled-components";
 import usePlayButton from "../../hooks/usePlayButton";
+import { EventRecordType } from "../../stores/events/event.slice";
 
 type PlayButtonProps = {
 	data: EventRecordType;
+	audioPath?: string;
 };
 
-const styleClass = `flex font-semibold py-2.5 px-5 rounded-lg shadow-lg`;
+const BaseButton = tw.a<{ $isPlay: boolean }>`
+	py-2.5 px-5
+	rounded-lg shadow-lg no-underline
+	flex 
+	font-semibold
+	cursor-pointer
+	${(p) =>
+		p.$isPlay
+			? "bg-rose-500 shadow-rose-500/20 hover:bg-rose-800 text-white"
+			: "bg-slate-100 shadow-slate-800/20 hover:bg-slate-800 text-black hover:text-white"}
+`;
 
 const PlayBtn = () => (
 	<>
@@ -20,43 +31,28 @@ const PlayBtn = () => (
 );
 const PauseBtn = () => (
 	<>
-		<p className="">PLAY</p>{" "}
+		<p>PLAY</p>
 		<MdPlayArrow size={20} className="ml-3 self-center" />
 	</>
 );
 
-const PlayButton: React.FC<PlayButtonProps> = ({ data: { volume, sound } }) => {
+const PlayButton: React.FC<PlayButtonProps> = ({
+	data: { volume, sound },
+	audioPath,
+}) => {
 	const { isPlaying, onPlayButtonClick } = usePlayButton(sound.path);
-	const [audioPath, setAudioPath] = useState<string | undefined>();
 	const audioRef = useRef<ReactAudioPlayer | null>(null);
-
-	useEffect(() => {
-		let isOnThisPage = true;
-		if (isOnThisPage) {
-			getFileFromPath(sound.path, setAudioPath);
-		}
-		return () => {
-			isOnThisPage = false;
-		};
-	}, [audioPath, sound.path]);
 
 	const onPlayToggleHandler = async () => {
 		onPlayButtonClick(audioRef);
 	};
 
-	const isPlayingColor = isPlaying
-		? "bg-rose-500 shadow-rose-500/20 hover:bg-rose-800 text-white"
-		: "bg-slate-100 shadow-slate-800/20 hover:bg-slate-800 text-black hover:text-white";
-
 	return (
 		<div className="flex">
-			<a
-				onClick={onPlayToggleHandler}
-				href="#"
-				className={`${styleClass} ${isPlayingColor} no-underline`}
-			>
+			<BaseButton onClick={onPlayToggleHandler} $isPlay={isPlaying}>
 				{isPlaying ? <PlayBtn /> : <PauseBtn />}
-			</a>
+			</BaseButton>
+
 			<ReactAudioPlayer
 				ref={audioRef}
 				src={audioPath}

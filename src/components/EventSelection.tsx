@@ -65,7 +65,7 @@ const EventSelection: React.FC<EventSelectionProps> = ({ data }) => {
 	};
 
 	const onSelectHandler = (event: string): void => {
-		console.log("On select handler");
+		// console.log("On select handler");
 		setValue(event);
 		setIsOpen(false);
 

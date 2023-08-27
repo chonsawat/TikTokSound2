@@ -1,33 +1,19 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { EventRecordType, eventActions } from "../stores/events/event.slice";
-import { useEffect } from "react";
 import { useAppDispatch } from "../stores/store";
 import * as fileUtils from "../utils/file";
 
 type FileInputProps = {
 	data: EventRecordType;
+	audioPath?: string;
 };
 
 const FileInput: React.FC<
 	Omit<React.HTMLProps<HTMLInputElement>, "data"> & FileInputProps
-> = ({ data }) => {
+> = ({ data, audioPath }) => {
 	const dispatch = useAppDispatch();
-	const [file, setFile] = useState<string>(data.sound.path);
+	const [file, setFile] = useState<string>(audioPath || data.sound.path);
 	const inputRef = useRef<HTMLInputElement>(null);
-
-	// Convert path to file url
-	// Maybe move to redux-thunk
-	useEffect(() => {
-		let isCancle = false;
-		if (!isCancle) {
-			if (file) {
-				fileUtils.getFileFromPath(data.sound.path, setFile);
-			}
-		}
-		return () => {
-			isCancle = true;
-		};
-	}, []);
 
 	if (data.sound.path !== undefined) {
 		fileUtils.updateInputFileName(inputRef, file);
