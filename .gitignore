@@ -1,5 +1,9 @@
 .vscode
 
+# my playgroud
+nodemon.json
+src/services/playground.ts
+
 # Logs
 logs
 *.log

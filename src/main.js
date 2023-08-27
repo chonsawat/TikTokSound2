@@ -92,7 +92,7 @@ app.whenReady().then(() => {
 			return result.stdout.length !== 0;
 		};
 		
-		if (isPortInUse(!port)) {
+		if (isPortInUse(port)) {
 			router = express.Router();
 			router.get("/", (req, res) => {
 				res.send("This is response from http://localhost:" + port);

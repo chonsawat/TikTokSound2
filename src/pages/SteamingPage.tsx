@@ -8,29 +8,12 @@ import { useEffect, useState } from "react";
 import { ipcRendererType } from "../services/ipcRenderer.type";
 
 const SteamingPage = () => {
-	const [isHostServer, setIsHostServer] = useState<boolean>(true);
 	const port = useAppSelector(portSelector);
-	const ipcRenderer = (window as any).ipcRenderer;
 
 	const onClickHandler = () => {
 		navigator.clipboard.writeText(`http://localhost:${port}`);
 		toast.success("Copy to clipboard!");
 	};
-
-	useEffect(() => {
-		console.log("isHostServer", isHostServer);
-
-		if (isHostServer) {
-			ipcRenderer.send(ipcRendererType.hostServerOnPort, port);
-		}
-
-		return () => {
-			if (isHostServer) {
-				ipcRenderer.send(ipcRendererType.closeServerOnPort, port);
-				setIsHostServer(false);
-			}
-		};
-	}, [port]);
 
 	useEffect(() => {
 		window.onbeforeunload = () => {

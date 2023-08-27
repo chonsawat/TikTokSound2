@@ -7,6 +7,7 @@ import InputPort from "../components/InputPort";
 import SwitchPageButton from "../components/Button/SwitchPageButton";
 import {
 	isConnectSelector,
+	portSelector,
 	tiktokUidSelector,
 } from "../stores/input/input.selector";
 import { inputActions } from "../stores/input/input.slice";
@@ -15,6 +16,7 @@ import SettingButton from "../components/Button/SettingButton";
 import PortSetting from "./port-setting/PortSetting";
 import DisConnectButton from "../components/Button/DisConnectButton";
 import ConnectButton from "../components/Button/ConnectButton";
+import { ipcRendererType } from "../services/ipcRenderer.type";
 
 type ConnectProps = {
 	pathname: string;
@@ -63,10 +65,18 @@ const Connect: React.FC<React.PropsWithChildren & ConnectProps> = ({
 
 	const uid = useAppSelector(tiktokUidSelector);
 	const isConnected = useAppSelector(isConnectSelector);
+	const port = useAppSelector(portSelector);
+
+	const ipcRenderer = (window as any).ipcRenderer;
 
 	const onClickHandler = () => {
 		console.log(uid);
 		dispatch(inputActions.setIsConnect(!isConnected));
+		if (isConnected) {
+			ipcRenderer.send(ipcRendererType.closeServerOnPort, port);
+		} else {
+			ipcRenderer.send(ipcRendererType.hostServerOnPort, port);
+		}
 
 		if (!isConnected) {
 			navigate("stream");
