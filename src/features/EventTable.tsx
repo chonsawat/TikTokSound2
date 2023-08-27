@@ -13,7 +13,7 @@ const EventTable = () => {
 
 	return (
 		<>
-			<div className="relative  shadow-md sm:rounded-lg">
+			<div className={`shadow-md sm:rounded-lg ${isEventRecordsIsNull && "pb-1"}`}>
 				<table className="w-full h-full text-sm text-left text-gray-500">
 					<TableHeader />
 					<TableBody data={eventRecords} />

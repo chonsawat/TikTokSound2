@@ -27,9 +27,10 @@ Done List
 - Handler Play on file that does not existed
 
 ## Example Application Interfaces on lastest update
-Latest - Snapshot
-<video src="docs/demo/TikTokSoundFileInput%20Update.mp4" controls title="Title"></video>
-![docs/demo/TikTokSoundFileInput%20Update.mp4](docs/demo/TikTokSoundFileInput%20Update.mp4)
+Latest - Snapshot <br/>
+YouTube: https://www.youtube.com/watch?v=1Us7MHyj6No 
+<br />
+![](./docs/demo/EventSelector.png)
 
 ## Backend Application Features updates
 - Get file location by path and parse to file type.
