@@ -6,11 +6,12 @@ import * as fileUtils from "../utils/file";
 type FileInputProps = {
 	data: EventRecordType;
 	audioPath?: string;
+	setIsLoading: any
 };
 
 const FileInput: React.FC<
 	Omit<React.HTMLProps<HTMLInputElement>, "data"> & FileInputProps
-> = ({ data, audioPath }) => {
+> = ({ data, audioPath, setIsLoading }) => {
 	const dispatch = useAppDispatch();
 	const [file, setFile] = useState<string>(audioPath || data.sound.path);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -18,6 +19,7 @@ const FileInput: React.FC<
 	if (data.sound.path !== undefined) {
 		fileUtils.updateInputFileName(inputRef, file);
 	}
+	setIsLoading(false);
 
 	const onChangeHandler = (event: any) => {
 		const filePath = event.target.files[0]?.path;

@@ -30,7 +30,7 @@ export const isFileExist = async ({
  */
 export const getFileFromPath = async (
 	path: string,
-	customFunc: (newState: string) => void
+	customFunc: (newState: string) => void,
 ): Promise<void> => {
 	try {
 		if (await isFileExist({ path: path, reason: "Loading File" })) {
@@ -99,3 +99,12 @@ export const updateInputFileName = (
 		}
 	}
 };
+
+const fileUtils = {
+	isFileExist,
+	getFileFromPath,
+	getFileName,
+	updateInputFileName,
+};
+
+export default fileUtils;

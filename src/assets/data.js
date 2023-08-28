@@ -46,13 +46,13 @@ export const events = [
 		name: "Please select",
 		id: uuid(),
 		imageUrl:
-			"https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
+			"https://www.freeiconspng.com/thumbs/load-icon-png/load-icon-png-27.png",
 	},
 	{
 		name: "Following",
 		id: uuid(),
 		imageUrl:
-			"https://freesvg.org/img/abstract-user-flat-3.png",
+			"https://cdni.iconscout.com/illustration/free/thumb/free-open-peeps-2372192-1999400.png",
 	},
 	{
 		name: "Subcribe",

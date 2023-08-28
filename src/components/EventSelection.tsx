@@ -5,6 +5,7 @@ import useOutsideClick from "../hooks/useOutsideClick";
 import { eventsSelector } from "../stores/events/event.selector";
 import { EventRecordType, eventActions } from "../stores/events/event.slice";
 import { useAppDispatch, useAppSelector } from "../stores/store";
+import { motion, AnimatePresence } from "framer-motion";
 
 import tw from "tailwind-styled-components";
 
@@ -23,12 +24,23 @@ type LiContainerProps = {
 const UlContainer = tw.ul<UlContainerProps>`
 	w-60 mt-2 bg-white rounded-xl overflow-y-auto 
 	no-scrollbar
-	${(p) => (p.$isOpen ? "max-h-80 border absolute z-50" : "max-h-0")}
+	${(p) => (p.$isOpen ? "max-h-80 border absolute z-40" : "max-h-0")}
 `;
-const LiContianer = tw.li<LiContainerProps>`h-10 py-7 text-sm hover:bg-gray-700 hover:text-white hover:font-semibold cursor-pointer
-	${(p) => p.$highlightCSS && "bg-gray-700 text-white font-semibold"} 
+
+const LiCardContainer = tw.div`flex h-full w-full ml-3.5 self-center items-center`;
+const LiCard = tw.div`flex`;
+const LiTextContainer = tw.div`flex flex-col self-center`;
+const LiImage = tw.img`w-10 h-fit object-fit mr-2.5 self-center`;
+const LiContianer = tw.li<LiContainerProps>`
+	h-10 py-7 
+	text-sm 
+	hover:bg-gray-100 
+	hover:font-bold
+	cursor-pointer
+	${(p) => p.$highlightCSS && "bg-gray-100 font-bold"} 
 `;
-const InputSearchContianer = tw.div`flex items-center px-2 focus:outline-none w-full sticky top-0 bg-white ring-1 ring-gray-300`;
+
+const InputSearchContianer = tw.div`flex items-center px-2 focus:outline-none w-full sticky top-0 bg-white ring-1 ring-gray-300 z-50`;
 const InputSearch = tw.input`placeholder:text-gray-600 border-none focus:ring-0 block outline-none p-2 w-full`;
 const SelectionContainer = tw.div`h-10 w-60`;
 const SelectionMenu = tw.div`
@@ -82,52 +94,102 @@ const EventSelection: React.FC<EventSelectionProps> = ({ data }) => {
 					}`}
 				/>
 			</SelectionMenu>
-			<UlContainer $isOpen={isOpen}>
-				<InputSearchContianer>
-					<AiOutlineSearch />
-					<InputSearch
-						id="searchEvent"
-						type="text"
-						placeholder="Search"
-						value={search}
-						onChange={onSearchHandler}
-					/>
-				</InputSearchContianer>
 
-				{eventsFiltered?.map((item) => {
-					const highlightCSS = item.name.toLowerCase() === value.toLowerCase();
+			<AnimatePresence>
+				{isOpen && (
+					<UlContainer
+						$as={motion.ul}
+						variants={{
+							hidden: { x: 0, opacity: 0.2, y: -80 },
+							visible: {
+								x: 0,
+								y: 0,
+								opacity: 1,
+								transition: { staggerChildren: 0.02 },
+							},
+							exit: { x: 0, opacity: 0, y: -10 },
+						}}
+						initial="hidden"
+						animate="visible"
+						exit="exit"
+						transition={{
+							duration: 0.05,
+							easings: ["easeIn"],
+							type: "tween",
+						}}
+						$isOpen={isOpen}
+					>
+						<InputSearchContianer>
+							<AiOutlineSearch />
+							<InputSearch
+								id="searchEvent"
+								type="text"
+								placeholder="Search"
+								value={search}
+								onChange={onSearchHandler}
+							/>
+						</InputSearchContianer>
 
-					let text;
-					const coin = item.diamond_count;
-					if (coin === 1) {
-						text = `x ${coin} Coin`;
-					} else if (coin === undefined) {
-						text = "";
-					} else {
-						text = `x ${coin} Coins`;
-					}
-					return (
-						<LiContianer
-							key={item.id}
-							$highlightCSS={highlightCSS}
-							onClick={() => onSelectHandler(item.name)}
-						>
-							<div className="flex h-full w-full pl-5 self-center items-center">
-								<div className="flex">
-									<img
-										src={item.imageUrl}
-										className="w-10 h-fit object-fit pr-2 self-center"
-									/>
-									<div className="flex flex-col self-center">
-										<p className="text-sm font-semibold">{item.name}</p>
-										{coin && <p className="text-sm text-gray-400">{text}</p>}
-									</div>
-								</div>
-							</div>
-						</LiContianer>
-					);
-				})}
-			</UlContainer>
+						{eventsFiltered?.map((item) => {
+							const highlightCSS =
+								item.name.toLowerCase() === value.toLowerCase();
+
+							let text;
+							const coin = item.diamond_count;
+							if (coin === 1) {
+								text = `x ${coin} Coin`;
+							} else if (coin === undefined) {
+								text = "";
+							} else {
+								text = `x ${coin} Coins`;
+							}
+							return (
+								<LiContianer
+									$as={motion.li}
+									variants={{
+										hidden: { x: -500, opacity: 0 },
+										visible: { x: 0, opacity: 1 },
+										exit: {
+											x: -10,
+											opacity: 1,
+											transition: {
+												duration: 0.001,
+											},
+										},
+									}}
+									layout
+									transition={{ type: "spring", mass: 0.25, stiffness: 150 }}
+									key={item.id}
+									$highlightCSS={highlightCSS}
+									onClick={() => onSelectHandler(item.name)}
+								>
+									<LiCardContainer>
+										<LiCard>
+											<LiImage
+												className={
+													item.name === "Please select" ? "animate-spin" : ""
+												}
+												src={item.imageUrl}
+											/>
+											<LiTextContainer>
+												<p className="title">{item.name}</p>
+												{coin && (
+													<p
+														id="price"
+														className="price text-gray-400 font-medium"
+													>
+														{text}
+													</p>
+												)}
+											</LiTextContainer>
+										</LiCard>
+									</LiCardContainer>
+								</LiContianer>
+							);
+						})}
+					</UlContainer>
+				)}
+			</AnimatePresence>
 		</SelectionContainer>
 	);
 };

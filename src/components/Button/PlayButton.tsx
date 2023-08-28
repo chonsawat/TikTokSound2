@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React, { useRef } from "react";
 import ReactAudioPlayer from "react-audio-player";
 import { ImSpinner7 } from "react-icons/im";
@@ -49,7 +50,16 @@ const PlayButton: React.FC<PlayButtonProps> = ({
 
 	return (
 		<div className="flex">
-			<BaseButton onClick={onPlayToggleHandler} $isPlay={isPlaying}>
+			<BaseButton
+				$as={motion.a}
+				whileTap={{
+					scale: 0.9,
+				}}
+				whileHover={{ scale: 1.05 }}
+				transition={{ duration:0.1, stiffness: 500, type: "spring" }}
+				onClick={onPlayToggleHandler}
+				$isPlay={isPlaying}
+			>
 				{isPlaying ? <PlayBtn /> : <PauseBtn />}
 			</BaseButton>
 
