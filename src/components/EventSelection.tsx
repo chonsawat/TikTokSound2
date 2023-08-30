@@ -47,11 +47,14 @@ const SelectionMenu = tw.div`
 	w-full h-full border rounded-xl bg-slate-50 flex items-center justify-between 
 	hover:cursor-pointer hover:bg-slate-100
 `;
+const SelectionImage = tw.img`h-fit object-fit mr-0 self-center w-6`;
 
 const EventSelection: React.FC<EventSelectionProps> = ({ data }) => {
 	const dispatch = useAppDispatch();
 	const events = useAppSelector(eventsSelector);
-	const [value, setValue] = useState<string>(data.event);
+	const [value, setValue] = useState<{ name: string; imageUrl: string }>(
+		data.event
+	);
 	const [search, setSearch] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const eventsFiltered = events.filter((item) => {
@@ -76,7 +79,7 @@ const EventSelection: React.FC<EventSelectionProps> = ({ data }) => {
 		setSearch((event.target as HTMLTextAreaElement).value);
 	};
 
-	const onSelectHandler = (event: string): void => {
+	const onSelectHandler = (event: { name: string; imageUrl: string }): void => {
 		// console.log("On select handler");
 		setValue(event);
 		setIsOpen(false);
@@ -87,7 +90,10 @@ const EventSelection: React.FC<EventSelectionProps> = ({ data }) => {
 	return (
 		<SelectionContainer ref={selectionRef}>
 			<SelectionMenu onClick={onClickHandler}>
-				<div className="font-semifold ml-5">{value}</div>
+				<div className="flex w-full ml-3 items-center justify-center">
+					<SelectionImage src={value.imageUrl} />
+					<div className="font-semifold mx-2">{value.name}</div>
+				</div>
 				<RiArrowDropDownLine
 					className={`mr-5 ${
 						isOpen ? "rotate-180 duration-300" : "rotate-0 duration-100"
@@ -132,7 +138,7 @@ const EventSelection: React.FC<EventSelectionProps> = ({ data }) => {
 
 						{eventsFiltered?.map((item) => {
 							const highlightCSS =
-								item.name.toLowerCase() === value.toLowerCase();
+								item.name.toLowerCase() === value.name?.toLowerCase();
 
 							let text;
 							const coin = item.diamond_count;
@@ -161,7 +167,12 @@ const EventSelection: React.FC<EventSelectionProps> = ({ data }) => {
 									transition={{ type: "spring", mass: 0.25, stiffness: 150 }}
 									key={item.id}
 									$highlightCSS={highlightCSS}
-									onClick={() => onSelectHandler(item.name)}
+									onClick={() =>
+										onSelectHandler({
+											name: item.name,
+											imageUrl: item.imageUrl,
+										})
+									}
 								>
 									<LiCardContainer>
 										<LiCard>

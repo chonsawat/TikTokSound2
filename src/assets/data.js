@@ -4,7 +4,11 @@ export const eventRecords = [
 	{
 		id: "1",
 		enable: true,
-		event: "following",
+		event: {
+			name: "Please select",
+			imageUrl:
+				"https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
+		},
 		volume: 0.2,
 		sound: {
 			path: "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\fart.wav",
@@ -13,7 +17,11 @@ export const eventRecords = [
 	{
 		id: "2",
 		enable: false,
-		event: "anygift",
+		event: {
+			name: "Please select",
+			imageUrl:
+				"https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
+		},
 		volume: 0.5,
 		sound: {
 			path: "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\fart-sm.wav",
@@ -22,7 +30,11 @@ export const eventRecords = [
 	{
 		id: "3",
 		enable: true,
-		event: "rose",
+		event: {
+			name: "Please select",
+			imageUrl:
+				"https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
+		},
 		volume: 0.1,
 		sound: {
 			path: "C:\\Users\\Acer\\Documents\\TikTokSoundTemp\\assets\\sound\\monkey-laugh-102.wav",
@@ -46,7 +58,7 @@ export const events = [
 		name: "Please select",
 		id: uuid(),
 		imageUrl:
-			"https://www.freeiconspng.com/thumbs/load-icon-png/load-icon-png-27.png",
+			"https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
 	},
 	{
 		name: "Following",

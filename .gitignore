@@ -3,6 +3,9 @@
 # my playgroud
 nodemon.json
 src/services/playground.ts
+src/mainTS.ts
+src/mainJS.js
+src/services/TikTokWidget
 
 # Logs
 logs

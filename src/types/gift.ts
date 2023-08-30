@@ -42,5 +42,5 @@ export type Gift = {
 	tracker_params?: object;
 	type?: number;
 } & {
-	imageUrl?: string;
+	imageUrl: string;
 };

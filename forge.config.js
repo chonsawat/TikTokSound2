@@ -1,6 +1,6 @@
 module.exports = {
   packagerConfig: {
-    icon: "src/assets/icon",
+    icon: "src/assets/icon/icon.ico",
   },
   rebuildConfig: {},
   makers: [
@@ -30,7 +30,7 @@ module.exports = {
         build: [
           {
             // `entry` is just an alias for `build.lib.entry` in the corresponding file of `config`.
-            entry: "src/main.js",
+            entry: "src/main.ts",
             config: "vite.main.config.mjs",
           },
           {

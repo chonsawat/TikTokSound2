@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { EventRecordType, eventActions } from "../stores/events/event.slice";
 import { useAppDispatch } from "../stores/store";
 import * as fileUtils from "../utils/file";
@@ -6,7 +6,7 @@ import * as fileUtils from "../utils/file";
 type FileInputProps = {
 	data: EventRecordType;
 	audioPath?: string;
-	setIsLoading: any
+	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const FileInput: React.FC<
@@ -19,7 +19,10 @@ const FileInput: React.FC<
 	if (data.sound.path !== undefined) {
 		fileUtils.updateInputFileName(inputRef, file);
 	}
-	setIsLoading(false);
+
+	useEffect(() => {
+		setIsLoading(false);
+	}, [audioPath]);
 
 	const onChangeHandler = (event: any) => {
 		const filePath = event.target.files[0]?.path;

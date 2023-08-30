@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { eventRecords } from "../../assets/data";
 import { events } from "../../assets/data";
 import { Gift } from "../../types/gift";
@@ -11,7 +12,7 @@ export type SoundType = {
 export type EventRecordType = {
 	id: string;
 	enable: boolean;
-	event: string;
+	event: { name: string; imageUrl: string };
 	volume: number;
 	sound: SoundType;
 };

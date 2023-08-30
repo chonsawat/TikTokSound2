@@ -1,10 +1,18 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
-const path = require("path");
-const fs = require("fs");
-const url = require("url");
-const morgan = require("morgan");
-const express = require("express");
-const { exec } = require("child_process");
+import { Express, NextFunction, Request, Response, Router } from "express";
+
+import { app, BrowserWindow, ipcMain } from "electron";
+
+import { IncomingMessage, Server, ServerResponse } from "http";
+
+import express from "express";
+
+import path from "path";
+
+import FileServices from "./services/file-service";
+import TikTokServices from "./services/tiktok-service";
+
+declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: any;
+declare const MAIN_WINDOW_VITE_NAME: any;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -65,57 +73,20 @@ app.on("activate", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 app.whenReady().then(() => {
-	let server = undefined;
-	let router = undefined;
-	const appExpress = express();
-	appExpress.use(morgan("tiny"));
-	appExpress.use((req, res, next) => {
-		router(req, res, next);
-	});
-	let counter = 1;
+	let router: Router | undefined = undefined;
+	let server:
+		| Server<typeof IncomingMessage, typeof ServerResponse>
+		| undefined = undefined;
 
-	ipcMain.handle("isFileExist", (event, {path, reason}) => {
-		const isExist = fs.existsSync(path)
-		console.log(`${counter} : ${isExist} : ${reason} => ${path}`);
-		counter = counter + 1;
-		if (isExist) {
-			return true;
-		}
-		return false;
+	const appExpress: Express = express();
+	// appExpress.use(morgan("tiny"));
+	appExpress.use((req: Request, res: Response, next: NextFunction) => {
+		router!(req, res, next);
 	});
 
-	ipcMain.handle("getFileFromPath", (event, path) => {
-		const file = url.pathToFileURL(path);
-		return file.href;
-	});
+	FileServices.isFileExist();
+	FileServices.getFileFromPath();
 
-	ipcMain.on("hostServerOnPort", (event, port) => {
-		// Check if the port is already in use
-		const isPortInUse = (port) => {
-			const result = exec(`netstat -ano | findstr /i "${port}"`);
-			return result.stdout.length !== 0;
-		};
-		
-		if (isPortInUse(port)) {
-			router = express.Router();
-			router.get("/", (req, res) => {
-				res.send("This is response from http://localhost:" + port);
-				
-				// TODO: Streaming algorithms
-				console.log("Streaming Algorithms", Math.random());
-				console.log("This is random", Math.random());
-			});
-
-			server = appExpress.listen(port, (err) => {
-				console.log("Server listening on port " + port);
-			});
-		}
-	});
-
-	ipcMain.on("closeServerOnPort", (event, port) => {
-		console.log("Close server http://localhost:" + port);
-		if (server) {
-			server.close();
-		}
-	});
+	TikTokServices.hostServerOnPort(router, server, appExpress);
+	TikTokServices.closeServerPort(server);
 });

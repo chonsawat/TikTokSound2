@@ -17,7 +17,11 @@ const AddButton: React.FC<AddButtonProps> = ({ additionalClass }) => {
 			eventActions.addEventRecord({
 				id,
 				enable: true,
-				event: "Please select",
+				event: {
+					name: "Please select",
+					imageUrl:
+						"https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
+				},
 				volume: 0.2,
 				sound: {},
 			})
